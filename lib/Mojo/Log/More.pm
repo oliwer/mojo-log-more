@@ -4,7 +4,7 @@ use Mojo::Base 'Mojo::Log';
 use Time::Piece;
 use File::Spec;
 
-our $VERSION = '1.00';
+our $VERSION = '1.01';
 
 # Increment this if you are using a wrapper
 our $caller_depth = 0;
