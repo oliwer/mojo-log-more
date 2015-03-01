@@ -4,18 +4,18 @@ use Mojo::Base 'Mojo::Log';
 use Time::Piece;
 use File::Spec;
 
-our $VERSION = '1.01';
+our $VERSION = '1.02';
 
 # Increment this if you are using a wrapper
 our $caller_depth = 0;
 
 has format => sub { \&_format };
 
-sub debug { shift->log(debug => @_, [caller($caller_depth)]) }
-sub error { shift->log(error => @_, [caller($caller_depth)]) }
-sub fatal { shift->log(fatal => @_, [caller($caller_depth)]) }
-sub info  { shift->log(info  => @_, [caller($caller_depth)]) }
-sub warn  { shift->log(warn  => @_, [caller($caller_depth)]) }
+sub debug { shift->emit('message', 'debug', @_, [caller($caller_depth)]) }
+sub info  { shift->emit('message', 'info',  @_, [caller($caller_depth)]) }
+sub warn  { shift->emit('message', 'warn',  @_, [caller($caller_depth)]) }
+sub error { shift->emit('message', 'error', @_, [caller($caller_depth)]) }
+sub fatal { shift->emit('message', 'fatal', @_, [caller($caller_depth)]) }
 
 sub _format {
   my $caller = pop;
@@ -110,7 +110,7 @@ Olivier Duclos, C<< <odc at cpan.org> >>
 
 =head1 LICENSE
 
-Copyright 2014 Olivier Duclos.
+Copyright 2015 Olivier Duclos.
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.
